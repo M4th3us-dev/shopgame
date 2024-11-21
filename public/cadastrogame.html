@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Game</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header>
+        <h1>Cadastrar Novo Jogo</h1>
+        <button onclick="window.location.href='index.html'">Voltar</button>
+    </header>
+    <main>
+        <form id="gameForm">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" placeholder="Ex: GTA V" required>
+
+            <label for="descricao">Descrição:</label>
+            <input type="text" id="descricao" placeholder="Ex: Ação, aventura" required>
+
+            <label for="preco">Preço:</label>
+            <input type="number" id="preco" placeholder="Ex: 150.00" required>
+
+            <label for="id_jogo">ID do Jogo:</label>
+            <input type="text" id="id_jogo" placeholder="Ex: 12345" required>
+
+            <label for="ano">Ano de Lançamento:</label>
+            <input type="number" id="ano" placeholder="Ex: 2014" required>
+
+            <button type="submit">Salvar Jogo</button>
+        </form>
+
+        <div id="message" style="display: none;"></div>
+    </main>
+  </div>
+
+  <script>
+    document.getElementById('gameForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Previne o envio tradicional do formulário
+
+        const nome = document.getElementById('nome').value;
+        const descricao = document.getElementById('descricao').value;
+        const preco = document.getElementById('preco').value;
+        const id_jogo = document.getElementById('id_jogo').value;
+        const ano = document.getElementById('ano').value;
+
+        // Verificação simples de campos obrigatórios
+        if (!nome || !descricao || !preco || !id_jogo || !ano) {
+            alert("Por favor, preencha todos os campos.");
+            return;
+        }
+
+        const gameData = {
+            nome,
+            descricao,
+            preco,
+            id_jogo,
+            ano
+        };
+
+        // Envia os dados via fetch para o backend
+        fetch('cadastro_game.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(gameData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById('message').style.display = 'block';
+                document.getElementById('message').textContent = data.message;
+                document.getElementById('gameForm').reset(); // Reseta o formulário após o envio
+            } else {
+                document.getElementById('message').style.display = 'block';
+                document.getElementById('message').textContent = "Erro ao cadastrar o jogo!";
+            }
+        })
+        .catch(error => {
+            document.getElementById('message').style.display = 'block';
+            document.getElementById('message').textContent = "Erro ao cadastrar o jogo!";
+        });
+    });
+  </script>
+</body>
+</html>

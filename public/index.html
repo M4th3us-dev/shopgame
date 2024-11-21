@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela Principal - Game</title>
+    <link rel="stylesheet" href="style1.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Cadastro de Game</h1>
+        </header>
+        
+        <div class="button-group">
+            <!-- Ajustando o link para o cadastro de games -->
+            <button onclick="window.location.href='cadastrogame.html'">Cadastrar Novo Game</button>
+        </div>
+        
+        <main>
+            <section class="game-section">
+                <h2>Lista de Games</h2>
+                <table id="gameTable">
+                    <thead>
+                        <tr>
+                            <th>Descrição</th>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Empresa</th>
+                            <th>Ano de Lançamento</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- As linhas serão carregadas dinamicamente aqui -->
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Função para carregar a lista de jogos da API
+        function loadGames() {
+            fetch('/path/to/your/api/games')  // Substitua pelo endpoint correto
+                .then(response => response.json())
+                .then(games => {
+                    const tableBody = document.querySelector('#gameTable tbody');
+                    tableBody.innerHTML = '';  // Limpar tabela antes de preencher
+
+                    games.forEach(game => {
+                        const row = document.createElement('tr');
+
+                        // Criando células de dados
+                        row.innerHTML = `
+                            <td>${game.descricao}</td>
+                            <td>${game.id}</td>
+                            <td>${game.nome}</td>
+                            <td>${game.empresa}</td>
+                            <td>${game.ano}</td>
+                            <td>
+                                <button onclick="editGame(${game.id})">Editar</button>
+                                <button onclick="deleteGame(${game.id})">Deletar</button>
+                            </td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => {
+                    console.error("Erro ao carregar os jogos:", error);
+                    alert("Erro ao carregar a lista de jogos.");
+                });
+        }
+
+        // Função para editar um jogo (você pode adicionar o comportamento)
+        function editGame(id) {
+            console.log("Editar jogo com ID:", id);
+            // Redirecionar ou abrir formulário de edição
+        }
+
+        // Função para deletar um jogo (você pode adicionar o comportamento)
+        function deleteGame(id) {
+            if (confirm("Tem certeza que deseja excluir este jogo?")) {
+                fetch(`/path/to/your/api/games/${id}`, {
+                    method: 'DELETE'
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert("Jogo deletado com sucesso!");
+                        loadGames();  // Recarrega a lista após exclusão
+                    } else {
+                        alert("Erro ao deletar o jogo.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Erro ao deletar o jogo:", error);
+                    alert("Erro ao deletar o jogo.");
+                });
+            }
+        }
+
+        // Carregar a lista de jogos ao carregar a página
+        window.onload = loadGames;
+    </script>
+</body>
+
+</html>

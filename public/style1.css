@@ -1,0 +1,139 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: #181818; /* Fundo escuro */
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Container principal */
+.container {
+    width: 90%;
+    max-width: 1000px;
+    background: #2a2a2a; /* Cor do fundo do container */
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.7);
+}
+
+/* Header */
+header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+header h1 {
+    font-size: 3rem;
+    color: #ff0080; /* Neon pink */
+    text-shadow: 3px 3px 12px rgba(255, 0, 128, 0.9);
+}
+
+/* Button group */
+.button-group {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.button-group button {
+    background-color: #ff0080; /* Neon pink */
+    border: none;
+    color: #fff;
+    font-size: 1.2rem;
+    padding: 12px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 0 5px rgba(255, 0, 128, 0.7);
+}
+
+.button-group button:hover {
+    background-color: #ff33cc; /* Tom mais suave de neon pink */
+}
+
+.button-group button:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(255, 0, 128, 1); /* Brilho no foco */
+}
+
+/* Table */
+.game-section {
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 1rem;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+}
+
+th {
+    background: #333;
+    color: #ff0080; /* Neon pink para os cabeçalhos */
+    font-size: 1.2rem;
+}
+
+td {
+    background: #444;
+    color: #fff;
+}
+
+td button {
+    background-color: #ff0080; /* Neon pink para os botões dentro da tabela */
+    border: none;
+    color: #fff;
+    padding: 5px 10px;
+    margin: 5px;
+    font-size: 0.9rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+td button:hover {
+    background-color: #ff33cc; /* Tom suave de neon pink no hover */
+}
+
+td button:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(255, 0, 128, 1); /* Brilho no foco */
+}
+
+/* Rodapé */
+footer {
+    text-align: center;
+    margin-top: 40px;
+    color: #ccc;
+}
+
+/* Efeitos de animação */
+@keyframes slideIn {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+table {
+    animation: slideIn 0.8s ease-out;
+}
